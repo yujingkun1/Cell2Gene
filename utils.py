@@ -18,35 +18,20 @@ from tqdm import tqdm
 
 def get_fold_samples(fold_idx, all_samples=None):
     """
-    Generate train/test splits for k-fold cross validation
+    Get train/test splits for 10-fold cross validation (fixed splits matching original implementation)
     """
-    if all_samples is None:
-        all_samples = ['TENX152', 'MISC73', 'MISC72', 'MISC71', 'MISC70',
-                       'MISC69', 'MISC68', 'MISC67', 'MISC66', 'MISC65', 
-                       'MISC64', 'MISC63', 'MISC62', 'MISC58', 'MISC57',
-                       'MISC56', 'MISC51', 'MISC50', 'MISC49', 'MISC48',
-                       'MISC47', 'MISC46', 'MISC45', 'MISC44', 'MISC43',
-                       'MISC42', 'MISC41', 'MISC40', 'MISC39', 'MISC38',
-                       'MISC37', 'MISC36', 'MISC35', 'MISC34', 'MISC33',
-                       'TENX92', 'TENX91', 'TENX90', 'TENX89', 'TENX49',
-                       'TENX29', 'ZEN47', 'ZEN46', 'ZEN45', 'ZEN44',
-                       'ZEN43', 'ZEN42', 'ZEN39', 'ZEN38']
-    
-    # Create 10-fold splits
-    np.random.seed(42)
-    shuffled_samples = np.array(all_samples.copy())
-    np.random.shuffle(shuffled_samples)
-    
-    fold_size = len(shuffled_samples) // 10
-    fold_splits = {}
-    
-    for i in range(10):
-        start_idx = i * fold_size
-        if i == 9:  # last fold gets remaining samples
-            end_idx = len(shuffled_samples)
-        else:
-            end_idx = (i + 1) * fold_size
-        fold_splits[i] = shuffled_samples[start_idx:end_idx].tolist()
+    fold_splits = {
+        0: ['TENX152', 'MISC73', 'MISC72', 'MISC71', 'MISC70'],
+        1: ['MISC69', 'MISC68', 'MISC67', 'MISC66', 'MISC65'],
+        2: ['MISC64', 'MISC63', 'MISC62', 'MISC58', 'MISC57'],
+        3: ['MISC56', 'MISC51', 'MISC50', 'MISC49', 'MISC48'],
+        4: ['MISC47', 'MISC46', 'MISC45', 'MISC44', 'MISC43'],
+        5: ['MISC42', 'MISC41', 'MISC40', 'MISC39', 'MISC38'],
+        6: ['MISC37', 'MISC36', 'MISC35', 'MISC34', 'MISC33'],
+        7: ['TENX92', 'TENX91', 'TENX90', 'TENX89', 'TENX49'],
+        8: ['TENX29', 'ZEN47', 'ZEN46', 'ZEN45', 'ZEN44'],
+        9: ['ZEN43', 'ZEN42', 'ZEN39', 'ZEN38']
+    }
     
     test_samples = fold_splits[fold_idx]
     train_samples = []
