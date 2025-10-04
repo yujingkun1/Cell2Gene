@@ -21,11 +21,31 @@ Cell2Gene/
 
 ## Usage
 
-### Quick Start
+### Spatial Model Training
+
+#### 1. Extract_sincle_cell_features
+```bash
+cd /data/yujk/hovernet2feature/Cell2Gene
+python utils/extract_feature_dinov3.py
+```
+#### 2. Graph Construction
+```bash
+python utils/graph_construction.py
+```
+#### 3. Train the Model
 
 ```bash
 cd /data/yujk/hovernet2feature/Cell2Gene
 python train.py
+```
+### Bulk Model Training
+#### 1. Segment cells Using CellViT
+```bash
+CellViT-inference --config-dir cellVit.yaml
+```
+#### 2. Extract Cell Features
+```bash
+
 ```
 
 ### Key Features
