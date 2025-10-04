@@ -23,14 +23,15 @@ Cell2Gene/
 
 ### Spatial Model Training
 
-#### 1. Extract_sincle_cell_features
+
+#### 1. Extract_spatial_features
 ```bash
 cd /data/yujk/hovernet2feature/Cell2Gene
-python utils/extract_feature_dinov3.py
+python utils/extract_spatial_features_dinov3.py
 ```
 #### 2. Graph Construction
 ```bash
-python utils/graph_construction.py
+python utils/spatial_graph_construction.py
 ```
 #### 3. Train the Model
 
@@ -39,23 +40,32 @@ cd /data/yujk/hovernet2feature/Cell2Gene
 python train.py
 ```
 ### Bulk Model Training
+The model trained on bulk RNA-seq data to prepare for transfer learning.
 #### 1. Segment cells Using CellViT
 ```bash
 CellViT-inference --config-dir cellVit.yaml
 ```
 #### 2. Extract Cell Features
 ```bash
-
+python extract_spatial_features_dinov3.py
+```
+#### 3. Construct Cell Graph of Bulk Data
+```bash
+python bulk_graph_construction.py
+```
+#### 4. Train the Bulk Model
+```bash
+python train_bulk.py
 ```
 
-### Key Features
+### Transfer Learning
 
-- **Modular Design**: Clean separation of models, data, training, and utilities
-- **Multiple GNN Support**: GAT and GCN implementations
-- **Transformer Integration**: Spatial-aware transformer for gene expression prediction
-- **Cross-Validation**: Built-in 10-fold cross-validation
-- **Early Stopping**: Prevent overfitting with configurable early stopping
-- **Comprehensive Evaluation**: Multiple metrics including correlations and MSE
+Please compelete the step1,2 of Spatial Model Training and all steps of Bulk Model Training before running the transfer learning code.
+```bash
+python train_transfer.py
+```
+
+
 
 ### Model Architecture
 
